@@ -24,7 +24,7 @@ var UA = (function () {
      * @method isChrome
      */
     isChrome: function () {
-        return (/webkit\W.*(chrome|chromium)\W/i).test(ua);
+      return (/webkit\W(.*)(chrome|chromium)\W/i).test(ua);
     },
 
     /**
@@ -33,7 +33,7 @@ var UA = (function () {
      * @method isFirefox
      */
     isFirefox: function () {
-        return (/mozilla.*\Wfirefox\W/i).test(ua);
+      return (/mozilla(.*)\Wfirefox\W/i).test(ua);
     },
 
     /**
@@ -45,7 +45,7 @@ var UA = (function () {
      * @method isGecko
      */
     isGecko: function () {
-        return (/mozilla(?!.*webkit).*\Wgecko\W/i).test(ua);
+      return (/mozilla(?!(.*)webkit)(.*)Wgecko\W/i).test(ua);
     },
 
     /**
@@ -54,43 +54,45 @@ var UA = (function () {
      * @method isIE
      */
     isIE: function () {
-        return navigator.appName === "Microsoft Internet Explorer";
+      return navigator.appName === "Microsoft Internet Explorer";
     },
-    
+
     /**
      * Return version of Internet Explorer.
      *
      * @method getIEVersion
      */
-    getIEVersion: function() {
-      var rv = -1; // Return value assumes failure.
-      
+    getIEVersion: function () {
+      // Return value assumes failure.
+      var rv = -1,
+          re;
+
       if (UA.isIE()) {
-        var re  = new RegExp("MSIE ([0-9]{1,}[\.0-9]{0,})");
-        if (re.exec(ua) != null) {
-          rv = parseFloat( RegExp.$1 );
+        re = new RegExp("MSIE ([0-9]{1,}][0-9]{0,})");
+        if (re.exec(ua) !== null) {
+          rv = parseFloat(RegExp.$1);
         }
       }
-      
+
       return rv;
     },
-    
+
     /**
      * Return true if the browser is Internet Explorer 8.
      *
      * @method isIE8
      */
-    isIE8: function() {
-      return UA.isIE() && UA.getIEVersion() == 8.0
+    isIE8: function () {
+      return UA.isIE() && (UA.getIEVersion() === 8.0);
     },
-    
+
     /**
      * Return true if the browser is Internet Explorer 8 or older.
      *
      * @method isIE8OrBelow
      */
-    isIE8OrBelow: function() {
-      return UA.isIE() && UA.getIEVersion() <= 8.0
+    isIE8OrBelow: function () {
+      return UA.isIE() && (UA.getIEVersion() <= 8.0);
     },
 
     /**
@@ -101,14 +103,14 @@ var UA = (function () {
     isKindle: function () {
         return (/\W(kindle|silk)\W/i).test(ua);
     },
-    
+
     /**
      * Return true if the browser is running on a BlackBerry.
      *
      * @method isBlackBerry
      */
     isBlackBerry: function () {
-        return (/\W(BlackBerry)\W/i).test(ua);
+      return (/\W(BlackBerry)\W/i).test(ua);
     },
 
     /**
@@ -117,17 +119,17 @@ var UA = (function () {
      * @method isMobile
      */
     isMobile: function () {
-        return (/(iphone|ipod|(android.*?mobile)|blackberry|nokia|opera mobi)/i).test(ua);
+      return (/(iphone|ipod|(android(.*)?mobile)|blackberry|nokia|opera mobi)/i).test(ua);
     },
-    
-    
+
+
     /**
      * Return true if the browser is running on a Windows Phone.
      *
      * @method isIEMobile
      */
     isIEMobile: function () {
-        return (/(IEMobile)/i).test(ua);
+      return (/(IEMobile)/i).test(ua);
     },
 
     /**
@@ -136,7 +138,7 @@ var UA = (function () {
      * @method isOpera
      */
     isOpera: function () {
-        return (/opera.*\Wpresto\W/i).test(ua);
+      return (/opera(.*)\Wpresto\W/i).test(ua);
     },
 
     /**
@@ -145,7 +147,7 @@ var UA = (function () {
      * @method isSafari
      */
     isSafari: function () {
-        return (/webkit\W(?!.*chrome).*safari\W/i).test(ua);
+      return (/webkit\W(?!(.*)chrome)(.*)safari\W/i).test(ua);
     },
 
     /**
@@ -160,25 +162,25 @@ var UA = (function () {
        * If the word "Android" isn't followed by "mobile" then its a
        * tablet.
        */
-      return (/(ipad|android(?!.*mobile))/i).test(ua);
+      return (/(ipad|android(?!(.*)mobile))/i).test(ua);
     },
-    
+
     /**
      * Return true if the browser is running on an iPad.
      *
      * @method isIPad
      */
     isIPad: function () {
-        return (/(ipad)/i).test(ua);
+      return (/(ipad)/i).test(ua);
     },
-    
+
     /**
      * Return true if the browser is running on an iPhone.
      *
      * @method isIPhone
      */
     isIPhone: function () {
-        return (/(iphone)/i).test(ua);
+      return (/(iphone)/i).test(ua);
     },
 
     /**
@@ -187,7 +189,7 @@ var UA = (function () {
      * @method isTV
      */
     isTV: function () {
-        return (/googletv|sonydtv/i).test(ua);
+      return (/googletv|sonydtv/i).test(ua);
     },
 
     /**
@@ -196,7 +198,7 @@ var UA = (function () {
      * @method isWebKit
      */
     isWebKit: function () {
-        return (/webkit\W/i).test(ua);
+      return (/webkit\W/i).test(ua);
     },
 
     /**
@@ -205,7 +207,9 @@ var UA = (function () {
      * @method whoami
      */
     whoami: function () {
-        return ua;
+      return ua;
     }
+
   };
 }());
+
